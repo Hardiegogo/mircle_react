@@ -4,7 +4,7 @@ import { signupUser,loginUser } from "../../utils/auth-utils/auth-services";
 const initialState = {
   token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   isAuthenticated: localStorage.getItem("token") ? true : false,
-  loggedInUser: {},
+  loggedInUser: localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')): {},
 };
 
 

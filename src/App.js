@@ -5,10 +5,19 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Feed from "./pages/Feed";
 import RequireAuth from "./utils/RequireAuth";
+import {useDispatch} from 'react-redux'
+import { useEffect } from "react";
+import { getUsers } from "./utils/user-utils/user-services";
+import { getPosts } from "./utils/post-utils/post-services";
 
 function App() {
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    dispatch(getUsers())
+    dispatch(getPosts())
+  },[dispatch])
   return (
-    <div className="App">
+    <div className="App min-h-screen transform-none ">
       <Routes>
         <Route path='/' element={<Homepage/>}/>
         {/* Auth routes */}
