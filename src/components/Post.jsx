@@ -1,19 +1,26 @@
 import React,{useState} from 'react'
-import {AiOutlineHeart,AiFillDelete,AiFillHeart} from 'react-icons/ai'
+import {AiOutlineHeart,AiFillDelete,AiFillHeart,AiFillEdit} from 'react-icons/ai'
 import {BsBookmark,BsThreeDotsVertical} from 'react-icons/bs'
 import {GoComment} from 'react-icons/go'
 import { useSelector,useDispatch } from 'react-redux'
+import { postModalOn, setSelectedPost } from '../redux/features/postSlice'
 import { deletePost, dislikePost, likePost } from '../utils/post-utils/post-services'
-
+import { useOutsideClick } from '../hooks/useOutsideClick'
+import { useRef } from 'react'
 const isLikedCalculator=(likedBy,username)=>{
     const result=likedBy.find(user=>user.username===username)
     return result ? true : false
 }
 
-const Post=({post:{username,content,likes,comments,userProfile,_id}})=> {
+
+
+const Post=({post})=> {
+    const {username,content,likes,comments,userProfile,_id}=post
     const user = useSelector(state=>state.auth.loggedInUser)
     const [isLiked,setIsLiked]=useState(isLikedCalculator(likes.likedBy,user.username))
     const dispatch=useDispatch()
+    const refr=useRef()
+    useOutsideClick(refr,()=>setIsDropMenu(false))
     const isSameUser=user.username===username
     const {likeCount}=likes
     const [isDropMenu,setIsDropMenu]=useState(false)
@@ -33,6 +40,10 @@ const Post=({post:{username,content,likes,comments,userProfile,_id}})=> {
         }
         setIsLiked(!isLiked)
     }
+    const editHandler=()=>{
+        dispatch(setSelectedPost(post))
+        dispatch(postModalOn())
+    }
     
   return (
     <div className='bg-white border-black border-2 rounded shadow-neu p-4 font-sans'>
@@ -44,8 +55,10 @@ const Post=({post:{username,content,likes,comments,userProfile,_id}})=> {
         <div className='relative'>
             {isSameUser && <BsThreeDotsVertical onClick={()=>setIsDropMenu(!isDropMenu)} className='cursor-pointer' size={25}/>}
             {isDropMenu && 
-                <ul className='absolute right-4 bg-bgColor rounded' >
+                <ul className='absolute right-4 bg-bgColor rounded' ref={refr} >
                     <li onClick={deleteClickHandler} className='whitespace-nowrap flex items-center p-2 cursor-pointer rounded gap-1 hover:bg-lightOrange '><AiFillDelete size={20}/>Delete post</li>
+                    <li onClick={editHandler} className='whitespace-nowrap flex items-center p-2 cursor-pointer rounded gap-1 hover:bg-lightOrange '><AiFillEdit size={20}/>Edit post</li>
+
                 </ul>
             } 
         </div>

@@ -8,9 +8,11 @@ const PostSection = () => {
     const [content,setContent]=useState('')
     const dispatch=useDispatch()
     const clickHandler=()=>{
+        if(content){
         const post={content,comments:[],userProfile:user.userProfile}
         setContent('')
         dispatch(addPost(post))
+        }
     }
     return (
       <div>
