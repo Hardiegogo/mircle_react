@@ -5,13 +5,15 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Feed from "./pages/Feed";
 import RequireAuth from "./utils/RequireAuth";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from "react";
 import { getUsers } from "./utils/user-utils/user-services";
 import { getPosts } from "./utils/post-utils/post-services";
+import PostModal from "./components/PostModal";
 
 function App() {
   const dispatch=useDispatch()
+  const isModalOpen=useSelector(state=>state.posts.isModalOpen)
   useEffect(()=>{
     dispatch(getUsers())
     dispatch(getPosts())
@@ -26,6 +28,7 @@ function App() {
         {/* Private routes */}
         <Route path='/feed' element={<RequireAuth> <Feed/></RequireAuth>}/>
       </Routes>
+      {isModalOpen && <PostModal/>}
     </div>
   );
 }

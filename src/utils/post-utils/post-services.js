@@ -90,3 +90,22 @@ export const dislikePost=createAsyncThunk('posts/dislikePost',async(id)=>{
         console.log('error occured', error)
     }
 })
+
+export const editPost=createAsyncThunk('posts/editPost',async(postData)=>{
+    const encodedToken=localStorage.getItem('token')
+    try {
+        const res=await axios({
+            method:"POST",
+            url:`/api/posts/edit/${postData._id}`,
+            headers:{authorization:encodedToken},
+            data:{
+                postData
+            }
+        })
+        if(res.status===201){
+            return res.data.posts
+        }
+    } catch (error) {
+        console.log('error occured',error)
+    }
+})
