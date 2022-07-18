@@ -10,7 +10,6 @@ import { compose,filterByFollowing } from "../utils/post-utils/filterByFollowing
 const PostsList = ({feedType}) => {
   const posts = useSelector((state) => state.posts.posts);
   const {currentUser,selectedUser}=useSelector(state=>state.users)
-  console.log(currentUser)
   const [sortBy,setSortBy]=useState('')
   const sortedPosts=compose(filterByFollowing,calcSortedPosts)({posts,sortBy,feedType,currentUser,selectedUser})
   const changeHandler=(e)=>{
