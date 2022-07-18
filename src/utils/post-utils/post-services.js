@@ -61,14 +61,14 @@ export const deletePost=createAsyncThunk('posts/deletePost',async(id)=>{
 })
 
 export const likePost=createAsyncThunk('posts/likePost',async(id)=>{
-    const encodedToken=localStorage.getItem('token')
+    const encodedToken=localStorage.getItem('token') 
     try {
         const res=await axios({
             method:"POST",
-            url:`api/posts/like/${id}`,
+            url:`/api/posts/like/${id}`,
             headers:{authorization:encodedToken}
         })
-        if(res.status===201){
+        if(res.status===201){ 
             return res.data.posts
         }
     } catch (error) {

@@ -4,7 +4,7 @@ import { addPost } from "../utils/post-utils/post-services";
 
 
 const PostSection = () => {
-    const user = useSelector((state) => state.auth.loggedInUser);
+    const user = useSelector((state) => state.users.currentUser);
     const [content,setContent]=useState('')
     const dispatch=useDispatch()
     const clickHandler=()=>{

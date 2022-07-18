@@ -7,14 +7,16 @@ import { formatDate } from "../utils/authUtils";
 
 export const users = [
   {
-    _id: uuid(),
+    _id: 'ff',
     firstName: "Chirag",
     lastName: "Gupta",
     username: "Hardiegogo",
     password: "chirag",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    userProfile:"https://res.cloudinary.com/dqqehaaqo/image/upload/v1656880084/mircle/profile_pic_clyjaw.jpg"
+    userProfile:"https://res.cloudinary.com/dqqehaaqo/image/upload/v1656880084/mircle/profile_pic_clyjaw.jpg",
+    description:"Web Developer | React | Redux | Tailwind CSS | Chakra UI",
+    portfolioLink:"https://wholesale-fern-729.notion.site/Portfolio-dbc92458e49e40a18bc792abfaae0325"
   },
   {
     _id: uuid(),
@@ -37,7 +39,7 @@ export const users = [
     userProfile:"https://res.cloudinary.com/dqqehaaqo/image/upload/v1656880486/mircle/pfp-3_yommey.jpg"
   },
   {
-    _id: uuid(),
+    _id: 'gg',
     firstName: "Aman",
     lastName: "Singh",
     username: "aman11s",
