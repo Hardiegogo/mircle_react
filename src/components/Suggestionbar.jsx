@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { followUser, unfollowUser } from '../utils/user-utils/user-services'
 
 const calcIsFollowed=(usertoCheck,currentUser)=>{
-    const result=currentUser.following.find(user=>user.username===usertoCheck.username)
+    const result=currentUser.following?.find(user=>user.username===usertoCheck.username)
     return result ? true : false
 }
 
