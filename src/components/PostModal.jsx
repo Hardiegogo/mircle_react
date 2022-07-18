@@ -11,7 +11,7 @@ const calculateContent=(selectedPost)=>{
 
 const PostModal=()=>{
     
-    const user = useSelector((state) => state.auth.loggedInUser);
+    const user = useSelector((state) => state.users.currentUser);
     const selectedPost=useSelector(state=>state.posts.selectedPost)
     const refr=useRef(null)
     const [content,setContent]=useState(calculateContent(selectedPost))
