@@ -17,11 +17,12 @@ function App() {
   const dispatch=useDispatch()
   const isModalOpen=useSelector(state=>state.posts.isModalOpen)
   const currentUser=useSelector(state=>state.auth.loggedInUser)
+  const isAuthenticated=useSelector(state=>state.auth.isAuthenticated)
   useEffect(()=>{
     dispatch(getUsers())
     dispatch(getPosts())
     dispatch(setCurrentUser(currentUser))
-  },[dispatch])
+  },[dispatch,isAuthenticated])
   return (
     <div className="App min-h-screen transform-none ">
       <Routes>
