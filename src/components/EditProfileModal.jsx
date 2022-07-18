@@ -27,7 +27,7 @@ const EditProfileModal=({setIsModalOpen})=>{
         }))
         setIsModalOpen(false)
     }
-    return <div className="fixed min-w-[100vw] min-h-screen top-0 left-0 grid place-items-center z-20 font-sans">
+    return <div className="fixed min-w-[100vw] min-h-screen top-0 left-0 grid place-items-center bg-[rgba(0,0,0,0.5)] z-20 font-sans">
         <div className="bg-lightOrange p-4 shadow-neu border-black border-2 rounded sm:max-w-[20rem] w-fit sm:p-2" ref={modalRef} >
             <h2 className="text-xl font-semibold text-center sm:text-lg">Edit Profile</h2>
             <div className="flex gap-6 sm:gap-4 justify-center items-center flex-wrap">
