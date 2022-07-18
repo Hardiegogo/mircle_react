@@ -36,7 +36,7 @@ const PostModal=()=>{
     useOutsideClick(refr,()=>dispatch(postModalOff()))
     return (
       <div className="fixed min-h-screen min-w-[100vw] top-0 left-0 grid place-items-center bg-[rgba(0,0,0,0.5)] z-20" >
-        <div ref={refr}className="border-solid border-2 border-black bg-lightOrange p-6 rounded shadow-neu w-fit min-w-[30rem]  h-fit">
+        <div ref={refr}className="border-solid border-2 border-black bg-lightOrange p-6 rounded shadow-neu w-fit min-w-[30rem] sm:min-w-[20rem]  h-fit">
         <div className="flex gap-2">
           <img
             className="w-12 rounded-full object-cover h-12 "
