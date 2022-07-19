@@ -69,7 +69,7 @@ export const likePost=createAsyncThunk('posts/likePost',async(id)=>{
             headers:{authorization:encodedToken}
         })
         if(res.status===201){ 
-            return res.data.posts
+            return {posts:res.data.posts,id}
         }
     } catch (error) {
         console.log('error occured', error)
@@ -84,7 +84,7 @@ export const dislikePost=createAsyncThunk('posts/dislikePost',async(id)=>{
             headers:{authorization:encodedToken}
         })
         if(res.status===201){
-            return res.data.posts
+            return {posts:res.data.posts,id}
         }
     } catch (error) {
         console.log('error occured', error)

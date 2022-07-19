@@ -40,10 +40,33 @@ const postSlice = createSlice({
         state.posts=payload
     },
     [likePost.fulfilled]:(state,{payload})=>{
-      state.posts=payload
+      const{posts,id}=payload
+      const likedPost=posts.find(post=>post._id===id)
+      const newBookmarks=state.bookmarks.map(bookmark=>{
+        if(likedPost._id===id){
+          return likedPost
+        }else return bookmark
+      })
+      return {
+        ...state,
+        posts:posts,
+        bookmarks:newBookmarks
+      }
+      
     },
     [dislikePost.fulfilled]:(state,{payload})=>{
-      state.posts=payload
+      const{posts,id}=payload
+      const dislikedPost=posts.find(post=>post._id===id)
+      const newBookmarks=state.bookmarks.map(bookmark=>{
+        if(dislikedPost._id===id){
+          return dislikedPost
+        }else return bookmark
+      })
+      return {
+        ...state,
+        posts:posts,
+        bookmarks:newBookmarks
+      }
     },
     [editPost.fulfilled]:(state,{payload})=>{
       state.posts=payload

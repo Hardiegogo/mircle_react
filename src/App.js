@@ -8,7 +8,7 @@ import RequireAuth from "./utils/RequireAuth";
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from "react";
 import { getUsers } from "./utils/user-utils/user-services";
-import { getBookmarks, getPosts } from "./utils/post-utils/post-services";
+import {getPosts } from "./utils/post-utils/post-services";
 import PostModal from "./components/PostModal";
 import Profile from "./pages/Profile";
 import { setCurrentUser  } from "./redux/features/userSlice";
@@ -24,7 +24,6 @@ function App() {
     dispatch(getUsers())
     dispatch(getPosts())
     dispatch(setCurrentUser(currentUser))
-    dispatch(getBookmarks())
   },[dispatch,isAuthenticated])
   return (
     <div className="App min-h-screen transform-none ">
