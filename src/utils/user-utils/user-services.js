@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { updatePosts } from "../../redux/features/postSlice";
 const nameCalc=(fullname)=>{
   if(fullname.includes(' ')){
     const spaceIndex=fullname.search(' ')
@@ -63,9 +64,9 @@ export const unfollowUser=createAsyncThunk("users.unfollowUser",async({_id,setIs
   }
 })
 
-export const editUser=createAsyncThunk("users/editUser",async(user)=>{
+export const editUser=createAsyncThunk("users/editUser",async({updatedUser,dispatch})=>{
   const encodedToken=localStorage.getItem('token')
-  const {fullname,userProfile,description,portfolioLink}=user
+  const {fullname,userProfile,description,portfolioLink}=updatedUser
   const [firstName,lastName]=nameCalc(fullname)
   try {
     const res=await axios({
@@ -83,6 +84,7 @@ export const editUser=createAsyncThunk("users/editUser",async(user)=>{
       }
     })
     if(res.status===201){
+      dispatch(updatePosts(res.data.posts))
       return res.data.user
     }
   } catch (error) {

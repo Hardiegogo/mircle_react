@@ -21,10 +21,11 @@ const EditProfileModal=({setIsModalOpen})=>{
     }
     const clickHandler=(e)=>{
         e.preventDefault()
-        dispatch(editUser({
+        const updatedUser={
             ...user,
             userProfile : imgInput? URL.createObjectURL(imgInput) : user.userProfile
-        }))
+        }
+        dispatch(editUser({updatedUser,dispatch}))
         setIsModalOpen(false)
     }
     return <div className="fixed min-w-[100vw] min-h-screen top-0 left-0 grid place-items-center bg-[rgba(0,0,0,0.5)] z-20 font-sans">

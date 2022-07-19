@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPosts, getPost,addPost,deletePost, likePost, dislikePost, editPost } from "../../utils/post-utils/post-services";
+import { getPosts, getPost,addPost,deletePost, likePost, dislikePost, editPost, addToBookmarks, deleteFromBookmarks, getBookmarks } from "../../utils/post-utils/post-services";
 
 
 const initialState = {
   posts: [],
   selectedPost: {},
+  bookmarks:[],
   isModalOpen:false
 };
 
@@ -20,6 +21,9 @@ const postSlice = createSlice({
     },
     setSelectedPost:(state,{payload})=>{
       state.selectedPost=payload
+    },
+    updatePosts:(state,{payload})=>{
+      state.posts=payload
     }
   },
   extraReducers: {
@@ -43,10 +47,19 @@ const postSlice = createSlice({
     },
     [editPost.fulfilled]:(state,{payload})=>{
       state.posts=payload
+    },
+    [getBookmarks.fulfilled]:(state,{payload})=>{
+      state.bookmarks=payload
+    },
+    [addToBookmarks.fulfilled]:(state,{payload})=>{
+      state.bookmarks=payload
+    },
+    [deleteFromBookmarks.fulfilled]:(state,{payload})=>{
+      state.bookmarks=payload
     } 
   },
 });
 
-export const {postModalOn,postModalOff,setSelectedPost}=postSlice.actions
+export const {postModalOn,postModalOff,setSelectedPost,updatePosts}=postSlice.actions
 
 export default postSlice.reducer;

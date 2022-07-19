@@ -1,23 +1,28 @@
 import React,{useState} from 'react'
 import {AiOutlineHeart,AiFillDelete,AiFillHeart,AiFillEdit} from 'react-icons/ai'
-import {BsBookmark,BsThreeDotsVertical} from 'react-icons/bs'
+import {BsBookmark,BsThreeDotsVertical,BsBookmarkFill} from 'react-icons/bs'
 import {GoComment} from 'react-icons/go'
 import { useSelector,useDispatch } from 'react-redux'
 import { postModalOn, setSelectedPost } from '../redux/features/postSlice'
-import { deletePost, dislikePost, likePost } from '../utils/post-utils/post-services'
+import { addToBookmarks, deleteFromBookmarks, deletePost, dislikePost, likePost } from '../utils/post-utils/post-services'
 import { useOutsideClick } from '../hooks/useOutsideClick'
 import { useRef } from 'react'
 const isLikedCalculator=(likedBy,username)=>{
     const result=likedBy.find(user=>user.username===username)
     return result ? true : false
 }
-
+const isBookmarkedCalculator=(bookmarks,_id)=>{
+    const result=bookmarks?.find(bookmark=>bookmark._id===_id)
+    return result ? true : false
+}
 
 
 const Post=({post})=> {
     const {username,content,likes,comments,userProfile,_id}=post
     const user = useSelector(state=>state.auth.loggedInUser)
     const [isLiked,setIsLiked]=useState(isLikedCalculator(likes.likedBy,user.username))
+    const bookmarks=useSelector(state=>state.posts.bookmarks)
+    const [isBookmarked,setIsBookmarked]=useState(isBookmarkedCalculator(bookmarks,post._id))
     const dispatch=useDispatch()
     const refr=useRef()
     useOutsideClick(refr,()=>setIsDropMenu(false))
@@ -43,6 +48,13 @@ const Post=({post})=> {
     const editHandler=()=>{
         dispatch(setSelectedPost(post))
         dispatch(postModalOn())
+    }
+    const bookmarkClickHandler=()=>{
+        if(!isBookmarked){
+            dispatch(addToBookmarks(_id))
+        }else{
+            dispatch(deleteFromBookmarks(_id))
+        }setIsBookmarked(!isBookmarked)
     }
     
   return (
@@ -75,8 +87,8 @@ const Post=({post})=> {
                     <GoComment size={20}/> <p className='text-gray-600 ml-1' >{comments.length}</p>                   
                 </li>
             </ul>
-            <div className='cursor-pointer'>
-                <BsBookmark size={20}/>
+            <div className='cursor-pointer' onClick={bookmarkClickHandler}>
+                {!isBookmarked ? <BsBookmark size={20}/> : <BsBookmarkFill size={20}/>}
             </div>
         </div>
     </div>
