@@ -69,7 +69,7 @@ export const likePost=createAsyncThunk('posts/likePost',async(id)=>{
             headers:{authorization:encodedToken}
         })
         if(res.status===201){ 
-            return res.data.posts
+            return {posts:res.data.posts,id}
         }
     } catch (error) {
         console.log('error occured', error)
@@ -84,7 +84,7 @@ export const dislikePost=createAsyncThunk('posts/dislikePost',async(id)=>{
             headers:{authorization:encodedToken}
         })
         if(res.status===201){
-            return res.data.posts
+            return {posts:res.data.posts,id}
         }
     } catch (error) {
         console.log('error occured', error)
@@ -107,5 +107,52 @@ export const editPost=createAsyncThunk('posts/editPost',async(postData)=>{
         }
     } catch (error) {
         console.log('error occured',error)
+    }
+})
+
+export const addToBookmarks=createAsyncThunk("posts/addToBookmarks",async(postId)=>{
+    const encodedToken=localStorage.getItem('token')
+    try {
+        const res=await axios({
+            method:"POST",
+            url:`/api/users/bookmark/${postId}`,
+            headers:{authorization:encodedToken},
+        })
+        if(res.status===200){
+            return res.data.bookmarks
+        }
+    } catch (error) {
+        console.log("error occured",error)
+    }
+})
+export const deleteFromBookmarks=createAsyncThunk("posts/deleteFromBookmarks",async(postId)=>{
+    const encodedToken=localStorage.getItem('token')
+    try {
+        const res=await axios({
+            method:"POST",
+            url:`/api/users/remove-bookmark/${postId}`,
+            headers:{authorization:encodedToken},
+        })
+        if(res.status===200){
+            return res.data.bookmarks
+        }
+    } catch (error) {
+        console.log("error occured",error)
+    }
+})
+
+export const getBookmarks=createAsyncThunk("posts/getBookmarks",async()=>{
+    const encodedToken=localStorage.getItem('token')
+    try {
+        const res=await axios({
+            method:"GET",
+            url:"/api/users/bookmark/",
+            headers:{authorization:encodedToken}
+        })
+        if(res.status===200){
+            return res.data.bookmarks
+        }
+    } catch (error) {
+        console.log("error occured",error)
     }
 })

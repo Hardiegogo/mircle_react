@@ -8,10 +8,12 @@ import RequireAuth from "./utils/RequireAuth";
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from "react";
 import { getUsers } from "./utils/user-utils/user-services";
-import { getPosts } from "./utils/post-utils/post-services";
+import {getPosts } from "./utils/post-utils/post-services";
 import PostModal from "./components/PostModal";
 import Profile from "./pages/Profile";
 import { setCurrentUser  } from "./redux/features/userSlice";
+import Bookmarks from "./pages/Bookmarks";
+import Explore from "./pages/Explore";
 
 function App() {
   const dispatch=useDispatch()
@@ -33,6 +35,8 @@ function App() {
         {/* Private routes */}
         <Route path='/feed' element={<RequireAuth> <Feed/></RequireAuth>}/>
         <Route path='/user/:id' element={<RequireAuth><Profile/></RequireAuth>}/>
+        <Route path='/bookmarks' element={<RequireAuth><Bookmarks/></RequireAuth>}/>
+        <Route path='/explore' element={<RequireAuth><Explore/></RequireAuth>}/>
       </Routes>
       {isModalOpen && <PostModal/>}
     </div>
