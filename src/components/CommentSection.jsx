@@ -74,7 +74,7 @@ const CommentSection = ({ postId, postType }) => {
     );
   };
   return (
-    <div className="p-2 mb-24">
+    <div className="p-2">
       {commentState !== "fulfilled" ? (
         <ClipLoader />
       ) : (
@@ -96,7 +96,7 @@ const CommentSection = ({ postId, postType }) => {
         </div>
       )}
       {postType === "single-post" && (
-        <div className="mt-2 border-black border-2 p-2 rounded shadow-neu flex justify-between items-center">
+        <div className="mt-2 border-black border-2 p-2 rounded shadow-neu flex justify-between items-center ">
           <div>
             <h3 className="text-md font-semibold">@{currentUser.username}</h3>
             <label htmlFor="text"></label>
@@ -105,13 +105,13 @@ const CommentSection = ({ postId, postType }) => {
               id="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="ml-4 p-2 rounded focus:outline-none "
+              className="ml-4 p-2 rounded focus:outline-none w-3/4"
               placeholder="Add comment"
             />
           </div>
           <button
             onClick={addCommentHandler}
-            className="bg-primary inline-block text-white px-2 h-fit py-2 border-black border-solid shadow-neu border-2 mr-2"
+            className="bg-primary inline-block text-white px-2 h-fit py-2 border-black border-solid shadow-neu border-2 sm:text-sm"
           >
             Add
           </button>

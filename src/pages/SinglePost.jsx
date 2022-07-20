@@ -20,7 +20,7 @@ const SinglePost=()=>{
     <Navbar/>
     <div className="grid grid-cols-colsLayout xl:grid-cols-colsMaxLayout  lg:grid-cols-colslgLayout ">
         <Sidebar/>
-        {postStatus!=='fulfilled' ? <ClipLoader className="mx-auto p-4 block mt-10"/>: <Post post={selectedPost} postType="single-post"/>}
+        {postStatus!=='fulfilled' ? <ClipLoader className="mx-auto p-4 block mt-10"/>: <div className="lg:mb-24 w-[95%] mx-auto"><Post post={selectedPost} postType="single-post"/></div> }
         <Suggestionbar/>
     </div>
   </div>;
