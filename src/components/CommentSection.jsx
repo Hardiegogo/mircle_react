@@ -74,7 +74,7 @@ const CommentSection = ({ postId, postType }) => {
     );
   };
   return (
-    <div className="p-2">
+    <div className="p-2 mb-24">
       {commentState !== "fulfilled" ? (
         <ClipLoader />
       ) : (
