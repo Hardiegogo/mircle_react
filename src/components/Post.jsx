@@ -59,7 +59,7 @@ const Post=({post,postType})=> {
     }
     
   return (
-    <div className='bg-white border-black border-2 rounded shadow-neu p-4 font-sans m-2 mb-24'>
+    <div className='bg-white border-black border-2 rounded shadow-neu p-4 font-sans m-2'>
         <div className='flex justify-between'>
         <div className='flex items-center gap-2'>
             <img className="w-12 rounded-full object-cover h-12 " src={userProfile} alt="" />
