@@ -13,8 +13,13 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    test:()=>{
-      console.log('gg')
+    logoutUser:(state,{payload})=>{
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      state.token=null
+      state.isAuthenticated=false
+      state.loggedInUser={}
+      payload.navigate('/')
     }
   },
   extraReducers: {
@@ -36,6 +41,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {test}=authSlice.actions
+export const {logoutUser}=authSlice.actions
 
 export default authSlice.reducer;

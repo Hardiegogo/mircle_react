@@ -1,14 +1,15 @@
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
 import {AiOutlineHeart,AiFillDelete,AiFillHeart,AiFillEdit} from 'react-icons/ai'
 import {BsBookmark,BsThreeDotsVertical,BsBookmarkFill} from 'react-icons/bs'
 import {GoComment} from 'react-icons/go'
 import { useSelector,useDispatch } from 'react-redux'
 import { postModalOn, setSelectedPost } from '../redux/features/postSlice'
-import { addToBookmarks, deleteFromBookmarks, deletePost, dislikePost, likePost } from '../utils/post-utils/post-services'
-import { useOutsideClick } from '../hooks/useOutsideClick'
-import { useRef } from 'react'
+import { addComment, addToBookmarks, deleteFromBookmarks, deletePost, dislikePost, getComments, getPost, likePost } from '../utils/post-utils/post-services'
+import { useOutsideClick } from '../hooks/useOutsideClick' 
+
+import CommentSection from './CommentSection'
 const isLikedCalculator=(likedBy,username)=>{
-    const result=likedBy.find(user=>user.username===username)
+    const result=likedBy?.find(user=>user.username===username)
     return result ? true : false
 }
 const isBookmarkedCalculator=(bookmarks,_id)=>{
@@ -16,11 +17,11 @@ const isBookmarkedCalculator=(bookmarks,_id)=>{
     return result ? true : false
 }
 
-
-const Post=({post})=> {
+const Post=({post,postType})=> {
     const {username,content,likes,comments,userProfile,_id}=post
     const user = useSelector(state=>state.auth.loggedInUser)
-    const [isLiked,setIsLiked]=useState(isLikedCalculator(likes.likedBy,user.username))
+    const [isLiked,setIsLiked]=useState(isLikedCalculator(likes?.likedBy,user.username))
+    const [isCommentsOn,setIsCommentsOn]=useState((postType ? true : false))
     const bookmarks=useSelector(state=>state.posts.bookmarks)
     const [isBookmarked,setIsBookmarked]=useState(isBookmarkedCalculator(bookmarks,post._id))
     const dispatch=useDispatch()
@@ -58,7 +59,7 @@ const Post=({post})=> {
     }
     
   return (
-    <div className='bg-white border-black border-2 rounded shadow-neu p-4 font-sans'>
+    <div className='bg-white border-black border-2 rounded shadow-neu p-4 font-sans m-2 mb-24'>
         <div className='flex justify-between'>
         <div className='flex items-center gap-2'>
             <img className="w-12 rounded-full object-cover h-12 " src={userProfile} alt="" />
@@ -83,14 +84,15 @@ const Post=({post})=> {
                 <li className='flex items-center cursor-pointer ' onClick={likeClickHandler}>
                     {isLiked ? <AiFillHeart size={25} />  : <AiOutlineHeart size={25}/>}<p className='text-gray-600 ml-1'>{likeCount}</p>
                 </li>
-                <li className='flex items-center cursor-pointer'>
-                    <GoComment size={20}/> <p className='text-gray-600 ml-1' >{comments.length}</p>                   
+                <li className='flex items-center cursor-pointer' onClick={()=>setIsCommentsOn(!isCommentsOn)}>
+                    <GoComment size={20}/> <p className='text-gray-600 ml-1' >{comments?.length}</p>                   
                 </li>
             </ul>
             <div className='cursor-pointer' onClick={bookmarkClickHandler}>
                 {!isBookmarked ? <BsBookmark size={20}/> : <BsBookmarkFill size={20}/>}
             </div>
         </div>
+        {isCommentsOn && <CommentSection postId={post._id} postType={postType}/>}
     </div>
   )
 }

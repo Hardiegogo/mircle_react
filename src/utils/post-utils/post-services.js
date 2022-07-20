@@ -12,9 +12,9 @@ export const getPosts=createAsyncThunk('posts/getPosts',async()=>{
     }
 })
 
-export const getPost=createAsyncThunk('posts/getPost',async(id)=>{
+export const getPost=createAsyncThunk('posts/getPost',async(postId)=>{
     try {
-        const res=await axios.get(`/api/posts/${id}`)
+        const res=await axios.get(`/api/posts/${postId}`)
         if(res.status===200){
             return res.data.post
         }
@@ -154,5 +154,55 @@ export const getBookmarks=createAsyncThunk("posts/getBookmarks",async()=>{
         }
     } catch (error) {
         console.log("error occured",error)
+    }
+})
+
+export const getComments=createAsyncThunk("posts/getComments",async(id)=>{
+    try {
+        const res=await axios({
+            method:"GET",
+            url:`/api/comments/${id}`
+        })
+        if(res.status===200){
+            return res.data.comments
+        }
+    } catch (error) {
+        console.log("error occured",error)
+    }
+})
+
+export const addComment=createAsyncThunk("posts/addComment",async({commentData,postId})=>{
+    const encodedToken=localStorage.getItem('token')
+    try {
+        const res=await axios({
+            method:"POST",
+            url:`/api/comments/add/${postId}`,
+            headers:{authorization:encodedToken},
+            data:{
+                commentData
+            }
+            
+        })
+        if(res.status===201){
+            return res.data.comments
+        }
+    } catch (error) {
+        console.log("error occured", error)
+    }
+})
+
+export const deleteComment=createAsyncThunk("posts/deleteComment",async({postId,commentId})=>{
+    const encodedToken=localStorage.getItem('token')
+    try {
+        const res=await axios({
+            method:"POST",
+            url:`/api/comments/delete/${postId}/${commentId}`,
+            headers:{authorization:encodedToken}
+        })
+        if(res.status===201){
+            return res.data.comments
+        }
+    } catch (error) {
+        console.log("error occured", error)
     }
 })
