@@ -39,12 +39,6 @@ const CommentCard = ({ comment,selectedPost }) => {
                 Delete Comment
               </li>
             )}
-            {currentUser.username === comment.username && (
-              <li className="whitespace-nowrap flex items-center p-2 cursor-pointer rounded gap-1 hover:bg-lightOrange ">
-                <AiFillEdit size={20} />
-                Edit Comment
-              </li>
-            )}
           </ul>
         )}
       </div>
