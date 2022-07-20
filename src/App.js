@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import { setCurrentUser  } from "./redux/features/userSlice";
 import Bookmarks from "./pages/Bookmarks";
 import Explore from "./pages/Explore";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   const dispatch=useDispatch()
@@ -37,6 +38,7 @@ function App() {
         <Route path='/user/:id' element={<RequireAuth><Profile/></RequireAuth>}/>
         <Route path='/bookmarks' element={<RequireAuth><Bookmarks/></RequireAuth>}/>
         <Route path='/explore' element={<RequireAuth><Explore/></RequireAuth>}/>
+        <Route path='/post/:postId' element={<RequireAuth><SinglePost/></RequireAuth>} />
       </Routes>
       {isModalOpen && <PostModal/>}
     </div>

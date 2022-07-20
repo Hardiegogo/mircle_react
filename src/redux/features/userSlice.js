@@ -19,7 +19,12 @@ const userSlice=createSlice({
         },
         setCurrentUser:(state,{payload})=>{
             state.currentUser=payload
-        }
+        },
+        clearUsers:(state)=>{
+            state.users=[]
+            state.selectedUser={}
+            state.currentUser={}
+        },
     },
     extraReducers:{
         [getUsers.fulfilled]:(state,{payload})=>{
@@ -68,5 +73,5 @@ const userSlice=createSlice({
 
     }
 })
-export const {setSelectedUser,setCurrentUser} = userSlice.actions
+export const {setSelectedUser,setCurrentUser,clearUsers} = userSlice.actions
 export default userSlice.reducer

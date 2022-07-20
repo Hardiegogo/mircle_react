@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {ClipLoader} from 'react-spinners'
 import PostsList from './PostsList'
 import EditProfileModal from './EditProfileModal';
+import { logoutUser } from '../redux/features/authSlice';
+import {useNavigate} from 'react-router-dom'
+import { clearUsers } from '../redux/features/userSlice';
 
 const calcIsFollowed=(usertoCheck,currentUser)=>{
     const result=currentUser.following?.find(user=>user.username===usertoCheck.username)
@@ -21,6 +24,7 @@ const UserProfile=({userId})=> {
     const {userProfile,firstName,lastName,username,description,portfolioLink,followers,following,_id}=userToShow
     const [isLoading,setIsLoading]=useState(true)
     const [isModalOpen,setIsModalOpen]=useState(false)
+    const navigate=useNavigate()
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(getUser({userId,setIsLoading}))
@@ -35,8 +39,10 @@ const UserProfile=({userId})=> {
                 dispatch(followUser({_id,setIsFollowLoading}))
             }
         }
-        
-        
+    }
+    const logoutHandler=()=>{
+        dispatch(logoutUser({navigate}))
+        dispatch(clearUsers())
     }
   return (
     <div className='p-4 font-sans'>
@@ -46,7 +52,7 @@ const UserProfile=({userId})=> {
                 <img className='rounded-full w-40 h-40 object-cover ' src={userProfile} alt="" />
                 <h2 className='text-xl font-semibold mt-2'>{firstName + ' ' + lastName}</h2>
                 <h3 className='text-gray-500 font-medium'>@{username}</h3>
-                {currentUser===userToShow ? <button className='p-2 shadow-neu border-black border-2 my-2 bg-white' onClick={()=>setIsModalOpen(true)}>Edit profile</button> : <button className='p-2 shadow-neu border-black border-2 my-2 bg-white' onClick={clickHandler}>{isFollowed? "Followed": "Follow"}</button>}
+                {currentUser===userToShow ? <div className='flex flex-col '><button className='p-2 shadow-neu border-black border-2 my-2 bg-white' onClick={()=>setIsModalOpen(true)}>Edit profile</button><button className='p-2 shadow-neu border-black border-2 my-2 bg-red-500 text-white' onClick={logoutHandler}>Logout</button> </div>: <button className='p-2 shadow-neu border-black border-2 my-2 bg-white' onClick={clickHandler}>{isFollowed? "Followed": "Follow"}</button>}
                 <p>{description}</p>
                 {portfolioLink && <a href={portfolioLink} className="text-primary">Portfolio</a>}
         </div>}

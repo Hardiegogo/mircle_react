@@ -11,7 +11,7 @@ const Sidebar=()=> {
     dispatch(postModalOn())
   }
   return (
-    <div className='bg-lightOrange border-black border-2 shadow-neu rounded-lg w-fit p-8 m-8 font-sans min-w-[80%] text-black h-fit sticky top-24 lg:min-w-[100%] lg:mx-auto lg:m-0 lg:p-4 lg:pb-6 lg:fixed lg:top-[calc(100vh-4.6rem)] lg:rounded-none lg:bottom-0  '>
+    <div className='bg-lightOrange border-black border-2 shadow-neu rounded-lg w-fit p-8 m-8 font-sans min-w-[80%] text-black h-fit sticky top-24 lg:min-w-[100%] lg:mx-auto lg:m-0 lg:p-4 lg:pb-6 lg:fixed lg:top-[calc(100vh-4.6rem)] lg:rounded-none lg:bottom-0  z-20'>
         <ul className='flex flex-col gap-6 lg:flex-row flex-wrap lg:justify-between'>
             <NavLink to='/feed'className='flex gap-2 items-center cursor-pointer lg:order-1'> <ImHome size={32}/> <h3 className='font-bold text-lg lg:hidden' >Feed</h3></NavLink>
             <NavLink to='/explore'className='flex gap-2 items-center cursor-pointer lg:order-2'> <ImRocket size={32}/> <h3 className='font-bold text-lg lg:hidden' >Explore</h3></NavLink>

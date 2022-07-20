@@ -149,6 +149,15 @@ export const posts = [
           downvotedBy: [],
         },
       },
+      {
+        _id: uuid(),
+        username: "satyam shah",
+        text: "Wow!",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
     ],
 
   },
