@@ -15,7 +15,7 @@ const PostModal=()=>{
     const selectedPost=useSelector(state=>state.posts.selectedPost)
     const refr=useRef(null)
     const [content,setContent]=useState(calculateContent(selectedPost))
-    
+    //GG
     const dispatch=useDispatch()
     const clickHandler=()=>{
         if(content){
